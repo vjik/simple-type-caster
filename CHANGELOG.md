@@ -1,5 +1,5 @@
 # Simple Type Caster Change Log
 
-## 1.0.0 under development
+## 0.1
 
 - Initial release.

@@ -2,6 +2,7 @@
     "name": "vjik/simple-type-caster",
     "type": "library",
     "description": "Simple library for value type casting",
+    "version": "0.1",
     "keywords": [
         "type",
         "cast",
