@@ -1,10 +1,10 @@
-# _____
+# Simple Type Caster
 
-The package ...
+Simple library for value type casting.
 
 
-[![Latest Stable Version](https://poser.pugx.org/vjik/_____/v/stable.png)](https://packagist.org/packages/vjik/_____)
-[![Total Downloads](https://poser.pugx.org/vjik/_____/downloads.png)](https://packagist.org/packages/vjik/_____)
+[![Latest Stable Version](https://poser.pugx.org/vjik/simple-type-caster/v/stable.png)](https://packagist.org/packages/vjik/simple-type-caster)
+[![Total Downloads](https://poser.pugx.org/vjik/simple-type-caster/downloads.png)](https://packagist.org/packages/vjik/simple-type-caster)
 
 
 ## Installation
@@ -12,7 +12,7 @@ The package ...
 The package could be installed with [composer](https://getcomposer.org/download/):
 
 ```
-composer install vjik/_____
+composer install vjik/simple-type-caster
 ```
 
 ## General usage
@@ -25,14 +25,6 @@ The package is tested with [PHPUnit](https://phpunit.de/). To run tests:
 
 ```shell
 ./vendor/bin/phpunit
-```
-
-### Mutation testing
-
-The package tests are checked with [Infection](https://infection.github.io/) mutation framework. To run it:
-
-```shell
-./vendor/bin/infection
 ```
 
 ### Static analysis

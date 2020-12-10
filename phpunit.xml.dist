@@ -14,7 +14,7 @@
         <ini name="error_reporting" value="-1"/>
     </php>
     <testsuites>
-        <testsuite name="_____ tests">
+        <testsuite name="Simple Type Caster tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

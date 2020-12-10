@@ -1,14 +1,16 @@
 {
-    "name": "vjik/_____",
+    "name": "vjik/simple-type-caster",
     "type": "library",
-    "description": "_____",
+    "description": "Simple library for value type casting",
     "keywords": [
-        "_____"
+        "type",
+        "cast",
+        "casting"
     ],
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/vjik/_____/issues?state=open",
-        "source": "https://github.com/vjik/_____"
+        "issues": "https://github.com/vjik/simple-type-caster/issues?state=open",
+        "source": "https://github.com/vjik/simple-type-caster"
     },
     "minimum-stability": "stable",
     "require": {
@@ -16,17 +18,16 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4",
-        "roave/infection-static-analysis-plugin": "^1.5",
         "vimeo/psalm": "^4.2"
     },
     "autoload": {
         "psr-4": {
-            "Vjik\\_____\\": "src"
+            "Vjik\\SimpleTypeCaster\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vjik\\_____\\Tests\\": "tests"
+            "Vjik\\SimpleTypeCaster\\Tests\\": "tests"
         }
     },
     "scripts": {

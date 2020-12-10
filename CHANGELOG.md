@@ -1,4 +1,4 @@
-# _____ Change Log
+# Simple Type Caster Change Log
 
 ## 1.0.0 under development
 
