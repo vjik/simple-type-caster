@@ -12,7 +12,7 @@ Simple library for value type casting.
 The package could be installed with [composer](https://getcomposer.org/download/):
 
 ```
-composer install vjik/simple-type-caster
+composer require vjik/simple-type-caster
 ```
 
 ## General usage
