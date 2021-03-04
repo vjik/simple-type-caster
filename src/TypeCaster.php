@@ -23,6 +23,7 @@ final class TypeCaster
         }
 
         try {
+            /** @psalm-suppress MixedArgument */
             $value = NumericHelper::normalize($value);
         } catch (InvalidArgumentException $e) {
             return null;
@@ -32,6 +33,9 @@ final class TypeCaster
         return $value === null ? null : (int)$value;
     }
 
+    /**
+     * @param mixed $value
+     */
     public static function toFloatOrNull($value): ?float
     {
         if (is_float($value)) {
@@ -39,6 +43,7 @@ final class TypeCaster
         }
 
         try {
+            /** @psalm-suppress MixedArgument */
             $value = NumericHelper::normalize($value);
         } catch (InvalidArgumentException $e) {
             return null;
