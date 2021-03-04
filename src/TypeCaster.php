@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Vjik\SimpleTypeCaster;
 
+use InvalidArgumentException;
+use Yiisoft\Strings\NumericHelper;
+
+use function is_array;
+use function is_float;
+use function is_int;
+
 final class TypeCaster
 {
     /**
      * @param mixed $value
-     * @return int|null
      */
     public static function toIntOrNull($value): ?int
     {
@@ -20,9 +26,24 @@ final class TypeCaster
         return $value === null ? null : (int)$value;
     }
 
+    public static function toFloatOrNull($value): ?float
+    {
+        if (is_float($value)) {
+            return $value;
+        }
+
+        try {
+            $value = NumericHelper::normalize($value);
+        } catch (InvalidArgumentException $e) {
+            return null;
+        }
+
+        $value = self::toStringOrNull($value);
+        return $value === null ? null : (float)$value;
+    }
+
     /**
      * @param mixed $value
-     * @return string|null
      */
     public static function toStringOrNull($value): ?string
     {
@@ -33,7 +54,6 @@ final class TypeCaster
 
     /**
      * @param mixed $value
-     * @return array
      */
     public static function toArray($value): array
     {

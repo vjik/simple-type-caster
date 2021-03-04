@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vjik\SimpleTypeCaster\Tests;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Vjik\SimpleTypeCaster\TypeCaster;
 
 final class TypeCasterTest extends TestCase
@@ -25,11 +26,35 @@ final class TypeCasterTest extends TestCase
      * @dataProvider dataToIntOrNull
      *
      * @param mixed $value
-     * @param int|null $expected
      */
     public function testToIntOrNull($value, ?int $expected): void
     {
-        $this->assertSame($expected, TypeCaster::toIntOrNull($value));
+        self::assertSame($expected, TypeCaster::toIntOrNull($value));
+    }
+
+    public function dataToFloatOrNull(): array
+    {
+        return [
+            ['12 500,90', 12500.9],
+            ['13.56', 13.56],
+            [13.56, 13.56],
+            [1, 1.0],
+            [0, 0.0],
+            ['0', 0.0],
+            ['', null],
+            [null, null],
+            [new stdClass(), null],
+        ];
+    }
+
+    /**
+     * @dataProvider dataToFloatOrNull
+     *
+     * @param mixed $value
+     */
+    public function testToFloatOrNull($value, ?float $expected): void
+    {
+        self::assertSame($expected, TypeCaster::toFloatOrNull($value));
     }
 
     public function dataToStringOrNull(): array
@@ -46,11 +71,10 @@ final class TypeCasterTest extends TestCase
      * @dataProvider dataToStringOrNull
      *
      * @param mixed $value
-     * @param string|null $expected
      */
     public function testToStringOrNull($value, ?string $expected): void
     {
-        $this->assertSame($expected, TypeCaster::toStringOrNull($value));
+        self::assertSame($expected, TypeCaster::toStringOrNull($value));
     }
 
     public function dataToArray(): array
@@ -68,11 +92,10 @@ final class TypeCasterTest extends TestCase
      * @dataProvider dataToArray
      *
      * @param mixed $value
-     * @param array $expected
      */
     public function testToArray($value, array $expected): void
     {
-        $this->assertSame($expected, TypeCaster::toArray($value));
+        self::assertSame($expected, TypeCaster::toArray($value));
     }
 }
 
