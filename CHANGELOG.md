@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.3.0 under development
+
+- no changes in this release.
+
 ## 0.2.0 March 04, 2021 
 
 - Add `TypeCaster::toFloatOrNull()`.
