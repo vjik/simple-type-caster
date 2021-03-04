@@ -22,6 +22,12 @@ final class TypeCaster
             return $value;
         }
 
+        try {
+            $value = NumericHelper::normalize($value);
+        } catch (InvalidArgumentException $e) {
+            return null;
+        }
+
         $value = self::toStringOrNull($value);
         return $value === null ? null : (int)$value;
     }

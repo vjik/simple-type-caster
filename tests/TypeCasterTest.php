@@ -13,12 +13,14 @@ final class TypeCasterTest extends TestCase
     public function dataToIntOrNull(): array
     {
         return [
+            ['12 000', 12000],
             [42, 42],
             ['42', 42],
             [0, 0],
             ['0', 0],
             ['', null],
             [null, null],
+            [new stdClass(), null],
         ];
     }
 
