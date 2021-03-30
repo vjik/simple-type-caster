@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.3.0 under development
+
+- no changes in this release.
+
 ## 0.2.1 March 30, 2021
 
 - Add PHP 8 support.
