@@ -2,7 +2,7 @@
 
 ## 0.3.0 under development
 
-- no changes in this release.
+- Add PHP 8 support.
 
 ## 0.2.0 March 04, 2021 
 
