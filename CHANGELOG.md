@@ -1,8 +1,8 @@
 # Simple Type Caster Change Log
 
-## 0.3.0 under development
+## 0.2.2 April 27, 2021
 
-- no changes in this release.
+- Add `TypeCaster::toArrayOrNull()`.
 
 ## 0.2.1 March 30, 2021
 
