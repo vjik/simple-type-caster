@@ -70,4 +70,12 @@ final class TypeCaster
     {
         return is_array($value) ? $value : [];
     }
+
+    /**
+     * @param mixed $value
+     */
+    public static function toArrayOrNull($value): ?array
+    {
+        return is_array($value) ? $value : null;
+    }
 }

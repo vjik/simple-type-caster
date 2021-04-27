@@ -99,5 +99,26 @@ final class TypeCasterTest extends TestCase
     {
         self::assertSame($expected, TypeCaster::toArray($value));
     }
-}
 
+    public function dataToArrayOrNull(): array
+    {
+        return [
+            [['hello'], ['hello']],
+            ['hello', null],
+            [[], []],
+            ['', null],
+            [null, null],
+            [42, null],
+        ];
+    }
+
+    /**
+     * @dataProvider dataToArrayOrNull
+     *
+     * @param mixed $value
+     */
+    public function testToArrayOrNull($value, ?array $expected): void
+    {
+        self::assertSame($expected, TypeCaster::toArrayOrNull($value));
+    }
+}
