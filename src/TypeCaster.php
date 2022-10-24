@@ -58,6 +58,10 @@ final class TypeCaster
      */
     public static function toStringOrNull($value): ?string
     {
+        if (is_array($value)) {
+            return null;
+        }
+
         $value = (string)$value;
         $value = trim($value);
         return $value === '' ? null : $value;

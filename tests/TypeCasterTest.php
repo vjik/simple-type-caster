@@ -46,6 +46,8 @@ final class TypeCasterTest extends TestCase
             ['', null],
             [null, null],
             [new stdClass(), null],
+            [[], null],
+            [['a'], null],
         ];
     }
 
@@ -66,6 +68,8 @@ final class TypeCasterTest extends TestCase
             ['0', '0'],
             ['', null],
             [null, null],
+            [[], null],
+            [['a'], null],
         ];
     }
 
