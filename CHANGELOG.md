@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.2.3 October 24, 2022
+
+- Fix `TypeCaster::toStringOrNull()` when value is array.
+
 ## 0.2.2 April 27, 2021
 
 - Add `TypeCaster::toArrayOrNull()`.
