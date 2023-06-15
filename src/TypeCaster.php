@@ -56,6 +56,19 @@ final class TypeCaster
     /**
      * @param mixed $value
      */
+    public static function toString($value): string
+    {
+        if (is_array($value)) {
+            return '';
+        }
+
+        $value = (string)$value;
+        return trim($value);
+    }
+
+    /**
+     * @param mixed $value
+     */
     public static function toStringOrNull($value): ?string
     {
         if (is_array($value)) {

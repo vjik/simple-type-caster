@@ -61,6 +61,33 @@ final class TypeCasterTest extends TestCase
         self::assertSame($expected, TypeCaster::toFloatOrNull($value));
     }
 
+    public function dataToString(): array
+    {
+        return [
+            ['hello', 'hello'],
+            ['0', '0'],
+            [12, '12'],
+            [4.5, '4.5'],
+            [true, '1'],
+            [false, ''],
+            ['', ''],
+            [null, ''],
+            [[], ''],
+            [['a'], ''],
+            ['  hello  ', 'hello'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataToString
+     *
+     * @param mixed $value
+     */
+    public function testToString($value, string $expected): void
+    {
+        self::assertSame($expected, TypeCaster::toString($value));
+    }
+
     public function dataToStringOrNull(): array
     {
         return [
