@@ -10,6 +10,7 @@ use Yiisoft\Strings\NumericHelper;
 use function is_array;
 use function is_float;
 use function is_int;
+use function is_string;
 
 final class TypeCaster
 {
@@ -23,7 +24,7 @@ final class TypeCaster
             return null;
         }
 
-        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        $value = self::toNonEmptyStringOrNull(NumericHelper::normalize($value));
         return $value === null ? null : (int) $value;
     }
 
@@ -46,7 +47,7 @@ final class TypeCaster
             return null;
         }
 
-        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        $value = self::toNonEmptyStringOrNull(NumericHelper::normalize($value));
         return $value === null ? null : (float) $value;
     }
 
@@ -62,11 +63,28 @@ final class TypeCaster
 
     public static function toStringOrNull(mixed $value): ?string
     {
-        if (is_array($value)) {
+        if (is_string($value)) {
+            return $value;
+        }
+
+        if (is_array($value) || $value === null) {
             return null;
         }
 
         $value = (string) $value;
+        return $value === '' ? null : $value;
+    }
+
+    /**
+     * @return non-empty-string|null
+     */
+    public static function toNonEmptyStringOrNull(mixed $value): ?string
+    {
+        $value = self::toStringOrNull($value);
+        if ($value === null) {
+            return null;
+        }
+
         $value = trim($value);
         return $value === '' ? null : $value;
     }

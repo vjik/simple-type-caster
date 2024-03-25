@@ -3,6 +3,8 @@
 ## 0.3.0 March 15, 2024
 
 - Add `TypeCaster::toNonNegativeIntOrNull()`.
+- Add `TypeCaster::toNonEmptyStringOrNull()`.
+- Remove trim spaces in `TypeCaster::toStringOrNull()`.
 - Raise minimal PHP version to 8.1.
 
 ## 0.2.4 June 15, 2023
