@@ -22,6 +22,8 @@ final class TypeCasterTest extends TestCase
             ['', null],
             [null, null],
             [new stdClass(), null],
+            [-1, -1],
+            ['-1', -1],
         ];
     }
 
