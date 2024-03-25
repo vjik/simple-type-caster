@@ -106,9 +106,9 @@ final class TypeCasterTest extends TestCase
         return [
             ['hello', 'hello'],
             ['0', '0'],
-            ['', ''],
-            [' test ', ' test '],
-            ['  ', '  '],
+            ['', null],
+            [' test ', 'test'],
+            ['  ', null],
             [null, null],
             [25, '25'],
             [[], null],
@@ -120,27 +120,6 @@ final class TypeCasterTest extends TestCase
     public function testToStringOrNull(mixed $value, ?string $expected): void
     {
         self::assertSame($expected, TypeCaster::toStringOrNull($value));
-    }
-
-    public static function dataNonEmptyToStringOrNull(): array
-    {
-        return [
-            ['hello', 'hello'],
-            ['0', '0'],
-            ['', null],
-            [' test ', 'test'],
-            ['  ', null],
-            [null, null],
-            [25, '25'],
-            [[], null],
-            [['a'], null],
-        ];
-    }
-
-    #[DataProvider('dataNonEmptyToStringOrNull')]
-    public function testNonEmptyToStringOrNull(mixed $value, ?string $expected): void
-    {
-        self::assertSame($expected, TypeCaster::toNonEmptyStringOrNull($value));
     }
 
     public static function dataToArray(): array
