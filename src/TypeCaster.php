@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vjik\SimpleTypeCaster;
 
-use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Strings\NumericHelper;
 
 use function is_array;
@@ -19,15 +19,12 @@ final class TypeCaster
             return $value;
         }
 
-        try {
-            /** @psalm-suppress MixedArgument */
-            $value = NumericHelper::normalize($value);
-        } catch (InvalidArgumentException) {
+        if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
         }
 
-        $value = self::toStringOrNull($value);
-        return $value === null ? null : (int)$value;
+        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        return $value === null ? null : (int) $value;
     }
 
     public static function toFloatOrNull(mixed $value): ?float
@@ -36,15 +33,12 @@ final class TypeCaster
             return $value;
         }
 
-        try {
-            /** @psalm-suppress MixedArgument */
-            $value = NumericHelper::normalize($value);
-        } catch (InvalidArgumentException) {
+        if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
         }
 
-        $value = self::toStringOrNull($value);
-        return $value === null ? null : (float)$value;
+        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        return $value === null ? null : (float) $value;
     }
 
     public static function toString(mixed $value): string
@@ -53,7 +47,7 @@ final class TypeCaster
             return '';
         }
 
-        $value = (string)$value;
+        $value = (string) $value;
         return trim($value);
     }
 
@@ -63,7 +57,7 @@ final class TypeCaster
             return null;
         }
 
-        $value = (string)$value;
+        $value = (string) $value;
         $value = trim($value);
         return $value === '' ? null : $value;
     }
