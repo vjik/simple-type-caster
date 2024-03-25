@@ -110,6 +110,7 @@ final class TypeCasterTest extends TestCase
             [' test ', ' test '],
             ['  ', '  '],
             [null, null],
+            [25, '25'],
             [[], null],
             [['a'], null],
         ];
@@ -130,6 +131,7 @@ final class TypeCasterTest extends TestCase
             [' test ', 'test'],
             ['  ', null],
             [null, null],
+            [25, '25'],
             [[], null],
             [['a'], null],
         ];
