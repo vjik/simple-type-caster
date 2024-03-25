@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Vjik\SimpleTypeCaster\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vjik\SimpleTypeCaster\TypeCaster;
 
 final class TypeCasterTest extends TestCase
 {
-    public function dataToIntOrNull(): array
+    public static function dataToIntOrNull(): array
     {
         return [
             ['12 000', 12000],
@@ -24,15 +25,13 @@ final class TypeCasterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataToIntOrNull
-     */
+    #[DataProvider('dataToIntOrNull')]
     public function testToIntOrNull(mixed $value, ?int $expected): void
     {
         self::assertSame($expected, TypeCaster::toIntOrNull($value));
     }
 
-    public function dataToFloatOrNull(): array
+    public static function dataToFloatOrNull(): array
     {
         return [
             ['12 500,90', 12500.9],
@@ -49,15 +48,13 @@ final class TypeCasterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataToFloatOrNull
-     */
+    #[DataProvider('dataToFloatOrNull')]
     public function testToFloatOrNull(mixed $value, ?float $expected): void
     {
         self::assertSame($expected, TypeCaster::toFloatOrNull($value));
     }
 
-    public function dataToString(): array
+    public static function dataToString(): array
     {
         return [
             ['hello', 'hello'],
@@ -74,15 +71,13 @@ final class TypeCasterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataToString
-     */
+    #[DataProvider('dataToString')]
     public function testToString(mixed $value, string $expected): void
     {
         self::assertSame($expected, TypeCaster::toString($value));
     }
 
-    public function dataToStringOrNull(): array
+    public static function dataToStringOrNull(): array
     {
         return [
             ['hello', 'hello'],
@@ -94,15 +89,13 @@ final class TypeCasterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataToStringOrNull
-     */
+    #[DataProvider('dataToStringOrNull')]
     public function testToStringOrNull(mixed $value, ?string $expected): void
     {
         self::assertSame($expected, TypeCaster::toStringOrNull($value));
     }
 
-    public function dataToArray(): array
+    public static function dataToArray(): array
     {
         return [
             [['hello'], ['hello']],
@@ -113,15 +106,13 @@ final class TypeCasterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataToArray
-     */
+    #[DataProvider('dataToArray')]
     public function testToArray(mixed $value, array $expected): void
     {
         self::assertSame($expected, TypeCaster::toArray($value));
     }
 
-    public function dataToArrayOrNull(): array
+    public static function dataToArrayOrNull(): array
     {
         return [
             [['hello'], ['hello']],
@@ -133,9 +124,7 @@ final class TypeCasterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataToArrayOrNull
-     */
+    #[DataProvider('dataToArrayOrNull')]
     public function testToArrayOrNull(mixed $value, ?array $expected): void
     {
         self::assertSame($expected, TypeCaster::toArrayOrNull($value));
