@@ -26,10 +26,8 @@ final class TypeCasterTest extends TestCase
 
     /**
      * @dataProvider dataToIntOrNull
-     *
-     * @param mixed $value
      */
-    public function testToIntOrNull($value, ?int $expected): void
+    public function testToIntOrNull(mixed $value, ?int $expected): void
     {
         self::assertSame($expected, TypeCaster::toIntOrNull($value));
     }
@@ -53,10 +51,8 @@ final class TypeCasterTest extends TestCase
 
     /**
      * @dataProvider dataToFloatOrNull
-     *
-     * @param mixed $value
      */
-    public function testToFloatOrNull($value, ?float $expected): void
+    public function testToFloatOrNull(mixed $value, ?float $expected): void
     {
         self::assertSame($expected, TypeCaster::toFloatOrNull($value));
     }
@@ -80,10 +76,8 @@ final class TypeCasterTest extends TestCase
 
     /**
      * @dataProvider dataToString
-     *
-     * @param mixed $value
      */
-    public function testToString($value, string $expected): void
+    public function testToString(mixed $value, string $expected): void
     {
         self::assertSame($expected, TypeCaster::toString($value));
     }
@@ -102,10 +96,8 @@ final class TypeCasterTest extends TestCase
 
     /**
      * @dataProvider dataToStringOrNull
-     *
-     * @param mixed $value
      */
-    public function testToStringOrNull($value, ?string $expected): void
+    public function testToStringOrNull(mixed $value, ?string $expected): void
     {
         self::assertSame($expected, TypeCaster::toStringOrNull($value));
     }
@@ -123,10 +115,8 @@ final class TypeCasterTest extends TestCase
 
     /**
      * @dataProvider dataToArray
-     *
-     * @param mixed $value
      */
-    public function testToArray($value, array $expected): void
+    public function testToArray(mixed $value, array $expected): void
     {
         self::assertSame($expected, TypeCaster::toArray($value));
     }
@@ -145,10 +135,8 @@ final class TypeCasterTest extends TestCase
 
     /**
      * @dataProvider dataToArrayOrNull
-     *
-     * @param mixed $value
      */
-    public function testToArrayOrNull($value, ?array $expected): void
+    public function testToArrayOrNull(mixed $value, ?array $expected): void
     {
         self::assertSame($expected, TypeCaster::toArrayOrNull($value));
     }
