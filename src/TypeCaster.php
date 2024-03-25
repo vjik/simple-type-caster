@@ -13,18 +13,29 @@ use function is_int;
 
 final class TypeCaster
 {
-    public static function toIntOrNull(mixed $value): ?int
+    public static function toIntOrNull(mixed $value, ?int $min = null, ?int $max = null): ?int
     {
-        if (is_int($value)) {
-            return $value;
-        }
-
         if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
         }
 
-        $value = self::toStringOrNull(NumericHelper::normalize($value));
-        return $value === null ? null : (int) $value;
+        if (!is_int($value)) {
+            $value = self::toStringOrNull(NumericHelper::normalize($value));
+            if ($value === null) {
+                return null;
+            }
+            $value = (int) $value;
+        }
+
+        if ($min !== null && $value < $min) {
+            return null;
+        }
+
+        if ($max !== null && $value > $max) {
+            return null;
+        }
+
+        return $value;
     }
 
     /**

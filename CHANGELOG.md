@@ -2,6 +2,7 @@
 
 ## 0.3.0 March 15, 2024
 
+- Add options "min" and "max" to `TypeCaster::toIntOrNull()`.
 - Add `TypeCaster::toNonNegativeIntOrNull()`.
 - Add psalm type `non-empty-string|null` to result of `TypeCaster::toStringOrNull()`.
 - Raise minimal PHP version to 8.1.

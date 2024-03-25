@@ -33,6 +33,25 @@ final class TypeCasterTest extends TestCase
         self::assertSame($expected, TypeCaster::toIntOrNull($value));
     }
 
+    public static function dataToIntOrNullWithParams(): array
+    {
+        return [
+            [null, 7, 8, null],
+            [7, 7, 6, null],
+            [7, 7, 7, null],
+            [null, 7, null, 6],
+            [7, 7, null, 7],
+            [7, 7, null, 8],
+            [7, 7, 6, 8],
+        ];
+    }
+
+    #[DataProvider('dataToIntOrNullWithParams')]
+    public function testToIntOrNullWithParams(?int $expected, mixed $value, ?int $min, ?int $max): void
+    {
+        self::assertSame($expected, TypeCaster::toIntOrNull($value, $min, $max));
+    }
+
     public static function dataToNonNegativeIntOrNull(): array
     {
         return [
