@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vjik\SimpleTypeCaster;
 
-use InvalidArgumentException;
+use Stringable;
 use Yiisoft\Strings\NumericHelper;
 
 use function is_array;
@@ -13,85 +13,61 @@ use function is_int;
 
 final class TypeCaster
 {
-    /**
-     * @param mixed $value
-     */
-    public static function toIntOrNull($value): ?int
+    public static function toIntOrNull(mixed $value): ?int
     {
         if (is_int($value)) {
             return $value;
         }
 
-        try {
-            /** @psalm-suppress MixedArgument */
-            $value = NumericHelper::normalize($value);
-        } catch (InvalidArgumentException $e) {
+        if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
         }
 
-        $value = self::toStringOrNull($value);
-        return $value === null ? null : (int)$value;
+        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        return $value === null ? null : (int) $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function toFloatOrNull($value): ?float
+    public static function toFloatOrNull(mixed $value): ?float
     {
         if (is_float($value)) {
             return $value;
         }
 
-        try {
-            /** @psalm-suppress MixedArgument */
-            $value = NumericHelper::normalize($value);
-        } catch (InvalidArgumentException $e) {
+        if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
         }
 
-        $value = self::toStringOrNull($value);
-        return $value === null ? null : (float)$value;
+        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        return $value === null ? null : (float) $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function toString($value): string
+    public static function toString(mixed $value): string
     {
         if (is_array($value)) {
             return '';
         }
 
-        $value = (string)$value;
+        $value = (string) $value;
         return trim($value);
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function toStringOrNull($value): ?string
+    public static function toStringOrNull(mixed $value): ?string
     {
         if (is_array($value)) {
             return null;
         }
 
-        $value = (string)$value;
+        $value = (string) $value;
         $value = trim($value);
         return $value === '' ? null : $value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function toArray($value): array
+    public static function toArray(mixed $value): array
     {
         return is_array($value) ? $value : [];
     }
 
-    /**
-     * @param mixed $value
-     */
-    public static function toArrayOrNull($value): ?array
+    public static function toArrayOrNull(mixed $value): ?array
     {
         return is_array($value) ? $value : null;
     }

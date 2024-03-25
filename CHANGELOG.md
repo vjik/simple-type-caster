@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.3.0 March 15, 2024
+
+- Raise minimal PHP version to 8.1.
+
 ## 0.2.4 June 15, 2023
 
 - Add `TypeCaster::toString()`.
