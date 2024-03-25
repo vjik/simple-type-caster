@@ -107,7 +107,10 @@ final class TypeCasterTest extends TestCase
             ['hello', 'hello'],
             ['0', '0'],
             ['', null],
+            [' test ', 'test'],
+            ['  ', null],
             [null, null],
+            [25, '25'],
             [[], null],
             [['a'], null],
         ];

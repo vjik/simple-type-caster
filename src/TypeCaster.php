@@ -60,14 +60,16 @@ final class TypeCaster
         return trim($value);
     }
 
+    /**
+     * @psalm-return non-empty-string|null
+     */
     public static function toStringOrNull(mixed $value): ?string
     {
         if (is_array($value)) {
             return null;
         }
 
-        $value = (string) $value;
-        $value = trim($value);
+        $value = trim((string) $value);
         return $value === '' ? null : $value;
     }
 
