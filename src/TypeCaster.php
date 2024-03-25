@@ -27,6 +27,15 @@ final class TypeCaster
         return $value === null ? null : (int) $value;
     }
 
+    /**
+     * @psalm-return non-negative-int|null
+     */
+    public static function toNonNegativeIntOrNull(mixed $value): ?int
+    {
+        $value = self::toIntOrNull($value);
+        return ($value === null || $value < 0) ? null : $value;
+    }
+
     public static function toFloatOrNull(mixed $value): ?float
     {
         if (is_float($value)) {
