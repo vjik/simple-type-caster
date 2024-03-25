@@ -31,6 +31,28 @@ final class TypeCasterTest extends TestCase
         self::assertSame($expected, TypeCaster::toIntOrNull($value));
     }
 
+    public static function dataToNonNegativeIntOrNull(): array
+    {
+        return [
+            ['12 000', 12000],
+            [42, 42],
+            ['42', 42],
+            [0, 0],
+            ['0', 0],
+            ['', null],
+            [null, null],
+            [new stdClass(), null],
+            [-1, null],
+            ['-1', null],
+        ];
+    }
+
+    #[DataProvider('dataToNonNegativeIntOrNull')]
+    public function testToNonNegativeIntOrNull(mixed $value, ?int $expected): void
+    {
+        self::assertSame($expected, TypeCaster::toNonNegativeIntOrNull($value));
+    }
+
     public static function dataToFloatOrNull(): array
     {
         return [
