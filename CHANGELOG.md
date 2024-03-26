@@ -1,6 +1,10 @@
 # Simple Type Caster Change Log
 
-## 0.3.0 March 15, 2024
+## 0.3.1 March 26, 2024
+
+- Unfinalize `TypeCaster`.
+
+## 0.3.0 March 25, 2024
 
 - Add options "min" and "max" to `TypeCaster::toIntOrNull()`.
 - Add `TypeCaster::toNonNegativeIntOrNull()` and `TypeCaster::toPositiveIntOrNull()`.

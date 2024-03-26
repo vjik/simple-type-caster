@@ -11,9 +11,9 @@ use function is_array;
 use function is_float;
 use function is_int;
 
-final class TypeCaster
+class TypeCaster
 {
-    public static function toIntOrNull(mixed $value, ?int $min = null, ?int $max = null): ?int
+    final public static function toIntOrNull(mixed $value, ?int $min = null, ?int $max = null): ?int
     {
         if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
@@ -41,7 +41,7 @@ final class TypeCaster
     /**
      * @psalm-return non-negative-int|null
      */
-    public static function toNonNegativeIntOrNull(mixed $value): ?int
+    final public static function toNonNegativeIntOrNull(mixed $value): ?int
     {
         /** @var non-negative-int|null */
         return self::toIntOrNull($value, min: 0);
@@ -50,13 +50,13 @@ final class TypeCaster
     /**
      * @psalm-return positive-int|null
      */
-    public static function toPositiveIntOrNull(mixed $value): ?int
+    final public static function toPositiveIntOrNull(mixed $value): ?int
     {
         /** @var positive-int|null */
         return self::toIntOrNull($value, min: 1);
     }
 
-    public static function toFloatOrNull(mixed $value): ?float
+    final public static function toFloatOrNull(mixed $value): ?float
     {
         if (is_float($value)) {
             return $value;
@@ -70,7 +70,7 @@ final class TypeCaster
         return $value === null ? null : (float) $value;
     }
 
-    public static function toString(mixed $value): string
+    final public static function toString(mixed $value): string
     {
         if (is_array($value)) {
             return '';
@@ -83,7 +83,7 @@ final class TypeCaster
     /**
      * @psalm-return non-empty-string|null
      */
-    public static function toStringOrNull(mixed $value): ?string
+    final public static function toStringOrNull(mixed $value): ?string
     {
         if (is_array($value)) {
             return null;
@@ -93,12 +93,12 @@ final class TypeCaster
         return $value === '' ? null : $value;
     }
 
-    public static function toArray(mixed $value): array
+    final public static function toArray(mixed $value): array
     {
         return is_array($value) ? $value : [];
     }
 
-    public static function toArrayOrNull(mixed $value): ?array
+    final public static function toArrayOrNull(mixed $value): ?array
     {
         return is_array($value) ? $value : null;
     }
