@@ -7,6 +7,8 @@ namespace Vjik\SimpleTypeCaster\Tests;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Vjik\SimpleTypeCaster\Tests\Support\IntEnum;
+use Vjik\SimpleTypeCaster\Tests\Support\StringEnum;
 use Vjik\SimpleTypeCaster\TypeCaster;
 
 final class TypeCasterTest extends TestCase
@@ -198,5 +200,66 @@ final class TypeCasterTest extends TestCase
     public function testToArrayOrNull(mixed $value, ?array $expected): void
     {
         self::assertSame($expected, TypeCaster::toArrayOrNull($value));
+    }
+
+    public static function dataToArrayOfBackedEnums(): iterable
+    {
+        yield [[], IntEnum::class, null];
+        yield [[], IntEnum::class, 1];
+        yield [[], IntEnum::class, 'a'];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [IntEnum::A, IntEnum::C],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, 3],
+        ];
+        yield [
+            [IntEnum::A, 2 => IntEnum::C],
+            IntEnum::class,
+            [1, 4, 3],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, IntEnum::C],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, IntEnum::C, 2.2],
+        ];
+        yield [[], StringEnum::class, null];
+        yield [[], StringEnum::class, 1];
+        yield [[], StringEnum::class, 'a'];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            [StringEnum::A, StringEnum::C],
+        ];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            ['a', 'c'],
+        ];
+        yield [
+            [StringEnum::A, 2 => StringEnum::C],
+            StringEnum::class,
+            ['a', 'd', 'c'],
+        ];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            ['a', StringEnum::C],
+        ];
+    }
+
+    #[DataProvider('dataToArrayOfBackedEnums')]
+    public function testToArrayOfBackedEnums(array $expected, string $class, mixed $value): void
+    {
+        self::assertSame($expected, TypeCaster::toArrayOfBackedEnums($class, $value));
     }
 }

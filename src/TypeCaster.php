@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Vjik\SimpleTypeCaster;
 
+use BackedEnum;
 use Stringable;
 use Yiisoft\Strings\NumericHelper;
 
 use function is_array;
 use function is_float;
 use function is_int;
+use function is_string;
 
 class TypeCaster
 {
@@ -101,5 +103,28 @@ class TypeCaster
     final public static function toArrayOrNull(mixed $value): ?array
     {
         return is_array($value) ? $value : null;
+    }
+
+    /**
+     * @return BackedEnum[]
+     *
+     * @psalm-template TClass as BackedEnum
+     * @psalm-param class-string<TClass> $class
+     * @psalm-return array<array-key,TClass>
+     */
+    final public static function toArrayOfBackedEnums(string $class, mixed $value): array
+    {
+        $result = [];
+        foreach (self::toArray($value) as $key => $item) {
+            if ($item instanceof $class) {
+                $result[$key] = $item;
+            } elseif (is_string($item) || is_int($item)) {
+                $enum = $class::tryFrom($item);
+                if ($enum !== null) {
+                    $result[$key] = $enum;
+                }
+            }
+        }
+        return $result;
     }
 }
