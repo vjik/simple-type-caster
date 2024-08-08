@@ -17,8 +17,11 @@
         "yiisoft/strings": "^2.4"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.62",
+        "maglnet/composer-require-checker": "^4.7",
         "phpunit/phpunit": "^10.5",
         "rector/rector": "^1.0",
+        "roave/infection-static-analysis-plugin": "^1.35",
         "vimeo/psalm": "^5.23"
     },
     "autoload": {
@@ -32,8 +35,12 @@
         }
     },
     "scripts": {
+        "cs-fix": "php-cs-fixer fix"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "infection/extension-installer": false
+        }
     }
 }
