@@ -18,7 +18,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.62",
-        "maglnet/composer-require-checker": "^4.11",
+        "maglnet/composer-require-checker": "^4.7",
         "phpunit/phpunit": "^10.5",
         "rector/rector": "^1.0",
         "roave/infection-static-analysis-plugin": "^1.35",
