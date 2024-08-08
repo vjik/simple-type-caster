@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.3.2 August 08, 2024
+
+- Add `TypeCaster::toArrayOfBackedEnums()`.
+
 ## 0.3.1 March 26, 2024
 
 - Unfinalize `TypeCaster`.
