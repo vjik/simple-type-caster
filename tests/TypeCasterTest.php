@@ -275,12 +275,14 @@ final class TypeCasterTest extends TestCase
         yield [null, StringEnum::class, 'x'];
         yield [null, StringEnum::class, ['a']];
         yield [StringEnum::A, StringEnum::class, 'a'];
+        yield [StringEnum::A, StringEnum::class, StringEnum::A];
         yield [null, IntEnum::class, null];
         yield [null, IntEnum::class, 99];
         yield [null, IntEnum::class, 'x'];
         yield [null, IntEnum::class, '1'];
         yield [null, IntEnum::class, [1]];
         yield [IntEnum::A, IntEnum::class, 1];
+        yield [IntEnum::A, IntEnum::class, IntEnum::A];
     }
 
     #[DataProvider('dataToBackedEnumOrNull')]
