@@ -123,6 +123,7 @@ class TypeCaster
                 ($isStringEnum && is_string($item)) ||
                 (!$isStringEnum && is_int($item))
             ) {
+                /** @var string|int $item */
                 $enum = $class::tryFrom($item);
                 if ($enum !== null) {
                     $result[$key] = $enum;
