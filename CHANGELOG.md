@@ -1,6 +1,6 @@
 # Simple Type Caster Change Log
 
-## 0.3.3 under development
+## 0.3.3 September 16, 2024
 
 - Add `TypeCaster::toBackedEnumOrNull()`.
 - Fix error in `TypeCaster::toArrayOfBackedEnums()` when raw value is incorrect.
