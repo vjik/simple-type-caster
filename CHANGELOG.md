@@ -2,6 +2,7 @@
 
 ## 0.3.3 under development
 
+- Add `TypeCaster::toBackedEnumOrNull()`.
 - Fix error in `TypeCaster::toArrayOfBackedEnums()` when raw value is incorrect.
 
 ## 0.3.2 August 08, 2024
