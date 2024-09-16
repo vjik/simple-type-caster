@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vjik\SimpleTypeCaster\Tests;
 
+use BackedEnum;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -265,5 +266,26 @@ final class TypeCasterTest extends TestCase
     public function testToArrayOfBackedEnums(array $expected, string $class, mixed $value): void
     {
         self::assertSame($expected, TypeCaster::toArrayOfBackedEnums($class, $value));
+    }
+
+    public static function dataToBackedEnumOrNull(): iterable
+    {
+        yield [null, StringEnum::class, null];
+        yield [null, StringEnum::class, 1];
+        yield [null, StringEnum::class, 'x'];
+        yield [null, StringEnum::class, ['a']];
+        yield [StringEnum::A, StringEnum::class, 'a'];
+        yield [null, IntEnum::class, null];
+        yield [null, IntEnum::class, 99];
+        yield [null, IntEnum::class, 'x'];
+        yield [null, IntEnum::class, '1'];
+        yield [null, IntEnum::class, [1]];
+        yield [IntEnum::A, IntEnum::class, 1];
+    }
+
+    #[DataProvider('dataToBackedEnumOrNull')]
+    public function testToBackedEnumOrNull(?BackedEnum $expected, string $class, mixed $value): void
+    {
+        self::assertSame($expected, TypeCaster::toBackedEnumOrNull($class, $value));
     }
 }

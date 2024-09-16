@@ -132,4 +132,28 @@ class TypeCaster
         }
         return $result;
     }
+
+    /**
+     * @psalm-template TClass as BackedEnum
+     * @psalm-param class-string<TClass> $class
+     * @psalm-return TClass|null
+     */
+    final public static function toBackedEnumOrNull(string $class, mixed $value): ?BackedEnum
+    {
+        if ($value instanceof $class) {
+            return $value;
+        }
+
+        $isStringValue = is_string($value);
+        if (!$isStringValue && !is_int($value)) {
+            return null;
+        }
+        /** @var string|int $value */
+
+        if (BackedEnumTypeChecker::isString($class) !== $isStringValue) {
+            return null;
+        }
+
+        return $class::tryFrom($value);
+    }
 }
