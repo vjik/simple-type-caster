@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.3.3 under development
+
+- Fix error in `TypeCaster::toArrayOfBackedEnums()` when raw value is incorrect.
+
 ## 0.3.2 August 08, 2024
 
 - Add `TypeCaster::toArrayOfBackedEnums()`.

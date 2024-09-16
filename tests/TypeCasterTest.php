@@ -207,6 +207,8 @@ final class TypeCasterTest extends TestCase
         yield [[], IntEnum::class, null];
         yield [[], IntEnum::class, 1];
         yield [[], IntEnum::class, 'a'];
+        yield [[], IntEnum::class, [99]];
+        yield [[], IntEnum::class, ['a']];
         yield [
             [IntEnum::A, IntEnum::C],
             IntEnum::class,
@@ -235,6 +237,8 @@ final class TypeCasterTest extends TestCase
         yield [[], StringEnum::class, null];
         yield [[], StringEnum::class, 1];
         yield [[], StringEnum::class, 'a'];
+        yield [[], StringEnum::class, [1]];
+        yield [[], StringEnum::class, ['x']];
         yield [
             [StringEnum::A, StringEnum::C],
             StringEnum::class,

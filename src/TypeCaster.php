@@ -115,10 +115,15 @@ class TypeCaster
     final public static function toArrayOfBackedEnums(string $class, mixed $value): array
     {
         $result = [];
+        $isStringEnum = BackedEnumTypeChecker::isString($class);
         foreach (self::toArray($value) as $key => $item) {
             if ($item instanceof $class) {
                 $result[$key] = $item;
-            } elseif (is_string($item) || is_int($item)) {
+            } elseif (
+                ($isStringEnum && is_string($item)) ||
+                (!$isStringEnum && is_int($item))
+            ) {
+                /** @var string|int $item */
                 $enum = $class::tryFrom($item);
                 if ($enum !== null) {
                     $result[$key] = $enum;
