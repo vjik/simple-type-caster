@@ -13,6 +13,9 @@ use function is_float;
 use function is_int;
 use function is_string;
 
+/**
+ * @psalm-api
+ */
 class TypeCaster
 {
     final public static function toIntOrNull(mixed $value, ?int $min = null, ?int $max = null): ?int
