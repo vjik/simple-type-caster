@@ -18,6 +18,7 @@ final class TypeCasterTest extends TestCase
     {
         return [
             ['12 000', 12000],
+            [' 12 000 ', 12000],
             [42, 42],
             ['42', 42],
             [0, 0],
@@ -59,6 +60,7 @@ final class TypeCasterTest extends TestCase
     {
         return [
             ['12 000', 12000],
+            [' 12 000 ', 12000],
             [42, 42],
             ['42', 42],
             [0, 0],
@@ -81,6 +83,7 @@ final class TypeCasterTest extends TestCase
     {
         return [
             ['12 000', 12000],
+            [' 12 000 ', 12000],
             [42, 42],
             ['42', 42],
             [0, null],
@@ -106,6 +109,7 @@ final class TypeCasterTest extends TestCase
         return [
             ['12 500,90', 12500.9],
             ['13.56', 13.56],
+            [' 13.56 ', 13.56],
             [13.56, 13.56],
             [1, 1.0],
             [0, 0.0],

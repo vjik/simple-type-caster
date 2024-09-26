@@ -25,7 +25,7 @@ class TypeCaster
         }
 
         if (!is_int($value)) {
-            $value = self::toStringOrNull(NumericHelper::normalize($value), trim: true);
+            $value = self::toStringOrNull(NumericHelper::normalize($value));
             if ($value === null) {
                 return null;
             }
@@ -71,7 +71,7 @@ class TypeCaster
             return null;
         }
 
-        $value = self::toStringOrNull(NumericHelper::normalize($value), trim: true);
+        $value = self::toStringOrNull(NumericHelper::normalize($value));
         return $value === null ? null : (float) $value;
     }
 
