@@ -14,7 +14,7 @@ use function is_int;
 use function is_string;
 
 /**
- * @psalm-api
+ * @api
  */
 class TypeCaster
 {
@@ -25,7 +25,7 @@ class TypeCaster
         }
 
         if (!is_int($value)) {
-            $value = self::toStringOrNull(NumericHelper::normalize($value));
+            $value = self::toStringOrNull(NumericHelper::normalize($value), trim: true);
             if ($value === null) {
                 return null;
             }
@@ -71,30 +71,35 @@ class TypeCaster
             return null;
         }
 
-        $value = self::toStringOrNull(NumericHelper::normalize($value));
+        $value = self::toStringOrNull(NumericHelper::normalize($value), trim: true);
         return $value === null ? null : (float) $value;
     }
 
-    final public static function toString(mixed $value): string
+    final public static function toString(mixed $value, bool $trim = false): string
     {
         if (is_array($value)) {
             return '';
         }
 
         $value = (string) $value;
-        return trim($value);
+
+        return $trim ? trim($value) : $value;
     }
 
     /**
      * @psalm-return non-empty-string|null
      */
-    final public static function toStringOrNull(mixed $value): ?string
+    final public static function toStringOrNull(mixed $value, bool $trim = false): ?string
     {
         if (is_array($value)) {
             return null;
         }
 
-        $value = trim((string) $value);
+        $value = (string) $value;
+        if ($trim) {
+            $value = trim($value);
+        }
+
         return $value === '' ? null : $value;
     }
 
