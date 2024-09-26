@@ -1,4 +1,5 @@
 {
+    "minMsi": 100,
     "source": {
         "directories": [
             "src"

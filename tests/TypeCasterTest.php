@@ -18,6 +18,7 @@ final class TypeCasterTest extends TestCase
     {
         return [
             ['12 000', 12000],
+            [' 12 000 ', 12000],
             [42, 42],
             ['42', 42],
             [0, 0],
@@ -59,6 +60,7 @@ final class TypeCasterTest extends TestCase
     {
         return [
             ['12 000', 12000],
+            [' 12 000 ', 12000],
             [42, 42],
             ['42', 42],
             [0, 0],
@@ -81,6 +83,7 @@ final class TypeCasterTest extends TestCase
     {
         return [
             ['12 000', 12000],
+            [' 12 000 ', 12000],
             [42, 42],
             ['42', 42],
             [0, null],
@@ -106,6 +109,7 @@ final class TypeCasterTest extends TestCase
         return [
             ['12 500,90', 12500.9],
             ['13.56', 13.56],
+            [' 13.56 ', 13.56],
             [13.56, 13.56],
             [1, 1.0],
             [0, 0.0],
@@ -129,22 +133,40 @@ final class TypeCasterTest extends TestCase
         return [
             ['hello', 'hello'],
             ['0', '0'],
-            [12, '12'],
-            [4.5, '4.5'],
-            [true, '1'],
-            [false, ''],
+            ['12', 12],
+            ['4.5', 4.5],
+            ['1', true],
+            ['', false],
             ['', ''],
-            [null, ''],
-            [[], ''],
-            [['a'], ''],
-            ['  hello  ', 'hello'],
+            ['', null],
+            ['', []],
+            ['', ['a']],
+            ['  hello  ', '  hello  '],
         ];
     }
 
     #[DataProvider('dataToString')]
-    public function testToString(mixed $value, string $expected): void
+    public function testToString(string $expected, mixed $value): void
     {
         self::assertSame($expected, TypeCaster::toString($value));
+    }
+
+    public static function dataToStringWithTrimUsing(): array
+    {
+        return [
+            ['', ' ', true],
+            ['hello', '  hello  ', true],
+            [' ', ' ', false],
+            ['  hello  ', '  hello  ', false],
+        ];
+    }
+
+    #[DataProvider('dataToStringWithTrimUsing')]
+    public function testToStringWithTrimUsing(string $expected, mixed $value, bool $trim): void
+    {
+        $result = TypeCaster::toString($value, trim: $trim);
+
+        self::assertSame($expected, $result);
     }
 
     public static function dataToStringOrNull(): array
@@ -152,20 +174,38 @@ final class TypeCasterTest extends TestCase
         return [
             ['hello', 'hello'],
             ['0', '0'],
-            ['', null],
-            [' test ', 'test'],
-            ['  ', null],
+            [null, ''],
             [null, null],
-            [25, '25'],
-            [[], null],
-            [['a'], null],
+            ['25', 25],
+            [null, []],
+            [null, ['a']],
+            [' test ', ' test '],
+            ['  ', '  '],
         ];
     }
 
     #[DataProvider('dataToStringOrNull')]
-    public function testToStringOrNull(mixed $value, ?string $expected): void
+    public function testToStringOrNull(?string $expected, mixed $value): void
     {
         self::assertSame($expected, TypeCaster::toStringOrNull($value));
+    }
+
+    public static function dataToStringOrNullWithTrimUsing(): array
+    {
+        return [
+            ['test', ' test ', true],
+            [null, '  ', true],
+            [' test ', ' test ', false],
+            ['  ', '  ', false],
+        ];
+    }
+
+    #[DataProvider('dataToStringOrNullWithTrimUsing')]
+    public function testToStringOrNullWithTrimUsing(?string $expected, mixed $value, bool $trim): void
+    {
+        $result = TypeCaster::toStringOrNull($value, trim: $trim);
+
+        self::assertSame($expected, $result);
     }
 
     public static function dataToArray(): array
