@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.4.1 under development
+
+- Add `TypeCaster::toListOfBackedEnums()`.
+
 ## 0.4.0 September 26, 2024
 
 - Add `$trim` argument to `TypeCaster::toString()` and `TypeCaster::toStringOrNull()`, default is false.
