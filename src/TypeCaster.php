@@ -142,6 +142,34 @@ class TypeCaster
     }
 
     /**
+     * @return BackedEnum[]
+     *
+     * @psalm-template TClass as BackedEnum
+     * @psalm-param class-string<TClass> $class
+     * @psalm-return list<TClass>
+     */
+    final public static function toListOfBackedEnums(string $class, mixed $value): array
+    {
+        $result = [];
+        $isStringEnum = BackedEnumTypeChecker::isString($class);
+        foreach (self::toArray($value) as $item) {
+            if ($item instanceof $class) {
+                $result[] = $item;
+            } elseif (
+                ($isStringEnum && is_string($item)) ||
+                (!$isStringEnum && is_int($item))
+            ) {
+                /** @var string|int $item */
+                $enum = $class::tryFrom($item);
+                if ($enum !== null) {
+                    $result[] = $enum;
+                }
+            }
+        }
+        return $result;
+    }
+
+    /**
      * @psalm-template TClass as BackedEnum
      * @psalm-param class-string<TClass> $class
      * @psalm-return TClass|null

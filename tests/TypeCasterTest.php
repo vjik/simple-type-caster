@@ -308,6 +308,71 @@ final class TypeCasterTest extends TestCase
         self::assertSame($expected, TypeCaster::toArrayOfBackedEnums($class, $value));
     }
 
+    public static function dataToListOfBackedEnums(): iterable
+    {
+        yield [[], IntEnum::class, null];
+        yield [[], IntEnum::class, 1];
+        yield [[], IntEnum::class, 'a'];
+        yield [[], IntEnum::class, [99]];
+        yield [[], IntEnum::class, ['a']];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [IntEnum::A, IntEnum::C],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, 3],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, 4, 3],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, IntEnum::C],
+        ];
+        yield [
+            [IntEnum::A, IntEnum::C],
+            IntEnum::class,
+            [1, IntEnum::C, 2.2],
+        ];
+        yield [[], StringEnum::class, null];
+        yield [[], StringEnum::class, 1];
+        yield [[], StringEnum::class, 'a'];
+        yield [[], StringEnum::class, [1]];
+        yield [[], StringEnum::class, ['x']];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            [StringEnum::A, StringEnum::C],
+        ];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            ['a', 'c'],
+        ];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            ['a', 'd', 'c'],
+        ];
+        yield [
+            [StringEnum::A, StringEnum::C],
+            StringEnum::class,
+            ['a', StringEnum::C],
+        ];
+    }
+
+    #[DataProvider('dataToListOfBackedEnums')]
+    public function testToListOfBackedEnums(array $expected, string $class, mixed $value): void
+    {
+        self::assertSame($expected, TypeCaster::toListOfBackedEnums($class, $value));
+    }
+
     public static function dataToBackedEnumOrNull(): iterable
     {
         yield [null, StringEnum::class, null];
