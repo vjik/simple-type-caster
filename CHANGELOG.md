@@ -1,6 +1,6 @@
 # Simple Type Caster Change Log
 
-## 0.4.1 under development
+## 0.4.1 October 21, 2024
 
 - Add `TypeCaster::toListOfBackedEnums()`.
 
