@@ -395,4 +395,33 @@ final class TypeCasterTest extends TestCase
     {
         self::assertSame($expected, TypeCaster::toBackedEnumOrNull($class, $value));
     }
+
+    public static function dataToListOfNonEmptyStrings(): iterable
+    {
+        yield [[], []];
+        yield [[], 12];
+        yield [['12'], [12]];
+        yield [
+            ['hello ', 'world'],
+            ['hello ', 'world']
+        ];
+        yield [
+            ['hello', 'world'],
+            ['hello ', 'world'],
+            true,
+        ];
+        yield [
+            ['hello', 'world'],
+            ['hello', [], 'world'],
+        ];
+    }
+
+    #[DataProvider('dataToListOfNonEmptyStrings')]
+    public function testToListOfNonEmptyStrings(array $expected, mixed $value, ?bool $trim = null): void
+    {
+        $result = $trim === null
+            ? TypeCaster::toListOfNonEmptyStrings($value)
+            : TypeCaster::toListOfNonEmptyStrings($value, $trim);
+        self::assertSame($expected, $result);
+    }
 }

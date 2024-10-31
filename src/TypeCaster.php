@@ -192,4 +192,21 @@ class TypeCaster
 
         return $class::tryFrom($value);
     }
+
+    /**
+     * @param mixed $value
+     * @return string[]
+     * @psalm-return list<non-empty-string>
+     */
+    final public static function toListOfNonEmptyStrings(mixed $value, bool $trim = false): array
+    {
+        $result = [];
+        foreach (self::toArray($value) as $item) {
+            $item = self::toStringOrNull($item, $trim);
+            if ($item !== null) {
+                $result[] = $item;
+            }
+        }
+        return $result;
+    }
 }
