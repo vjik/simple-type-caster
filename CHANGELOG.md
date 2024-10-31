@@ -1,6 +1,10 @@
 # Simple Type Caster Change Log
 
-## 0.4.1 under development
+## 0.4.2 October 31, 2024
+
+- Add `TypeCaster::toListOfNonEmptyStrings()`.
+
+## 0.4.1 October 21, 2024
 
 - Add `TypeCaster::toListOfBackedEnums()`.
 
