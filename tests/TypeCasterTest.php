@@ -478,6 +478,8 @@ final class TypeCasterTest extends TestCase
         yield [1734272324, new StringableObject('1734272324')];
         yield [null, new stdClass()];
         yield [0, 'hello'];
+        yield [null, null];
+        yield [null, ''];
     }
 
     #[DataProvider('dataToDateTimeOrNullByTimestamp')]
