@@ -142,6 +142,7 @@ final class TypeCasterTest extends TestCase
             ['', []],
             ['', ['a']],
             ['  hello  ', '  hello  '],
+            'non-stringable-object' => ['', new stdClass()],
         ];
     }
 

@@ -11,7 +11,9 @@ use Yiisoft\Strings\NumericHelper;
 use function is_array;
 use function is_float;
 use function is_int;
+use function is_scalar;
 use function is_string;
+use function strval;
 
 /**
  * @api
@@ -77,12 +79,7 @@ class TypeCaster
 
     final public static function toString(mixed $value, bool $trim = false): string
     {
-        if (is_array($value)) {
-            return '';
-        }
-
-        $value = (string) $value;
-
+        $value = is_scalar($value) ? (string) $value : '';
         return $trim ? trim($value) : $value;
     }
 
