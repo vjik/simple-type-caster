@@ -9,11 +9,55 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vjik\SimpleTypeCaster\Tests\Support\IntEnum;
+use Vjik\SimpleTypeCaster\Tests\Support\StringableObject;
 use Vjik\SimpleTypeCaster\Tests\Support\StringEnum;
 use Vjik\SimpleTypeCaster\TypeCaster;
 
 final class TypeCasterTest extends TestCase
 {
+    public static function dataToInt(): iterable
+    {
+        yield [12000, '12 000'];
+        yield [12000, ' 12 000 '];
+        yield [42, 42];
+        yield [42, '42'];
+        yield [0, 0];
+        yield [0, '0'];
+        yield [0, ''];
+        yield [0, null];
+        yield [0, new stdClass()];
+        yield [-1, -1];
+        yield [-1, '-1'];
+    }
+
+    #[DataProvider('dataToInt')]
+    public function testToInt(int $expected, mixed $value): void
+    {
+        self::assertSame($expected, TypeCaster::toInt($value));
+    }
+
+    public static function dataToIntWithParams(): iterable
+    {
+        yield [0, 0, null, null, 7];
+        yield [0, '0', null, null, 7];
+        yield [7, '', null, null, 7];
+        yield [7, null, null, null, 7];
+        yield [7, new stdClass(), null, null, 7];
+        yield [0, 7, 8, null, 0];
+        yield [7, 7, 6, null, 0];
+        yield [7, 7, 7, null, 0];
+        yield [0, 7, null, 6, 0];
+        yield [7, 7, null, 7, 0];
+        yield [7, 7, null, 8, 0];
+        yield [7, 7, 6, 8, 0];
+    }
+
+    #[DataProvider('dataToIntWithParams')]
+    public function testToIntWithParams(int $expected, mixed $value, ?int $min, ?int $max, int $default): void
+    {
+        self::assertSame($expected, TypeCaster::toInt($value, $min, $max, $default));
+    }
+
     public static function dataToIntOrNull(): array
     {
         return [
@@ -424,5 +468,24 @@ final class TypeCasterTest extends TestCase
             ? TypeCaster::toListOfNonEmptyStrings($value)
             : TypeCaster::toListOfNonEmptyStrings($value, $trim);
         self::assertSame($expected, $result);
+    }
+
+    public static function dataToDateTimeOrNullByTimestamp(): iterable
+    {
+        yield [1734272324, 1734272324];
+        yield [1734272324, 1734272324.99];
+        yield [1734272324, '1734272324'];
+        yield [1734272324, new StringableObject('1734272324')];
+        yield [null, new stdClass()];
+        yield [0, 'hello'];
+        yield [null, null];
+        yield [null, ''];
+    }
+
+    #[DataProvider('dataToDateTimeOrNullByTimestamp')]
+    public function testToDateTimeOrNullByTimestamp(int|null $expected, mixed $value): void
+    {
+        $result = TypeCaster::toDateTimeOrNullByTimestamp($value);
+        self::assertSame($expected, $result?->getTimestamp());
     }
 }
