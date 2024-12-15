@@ -14,6 +14,49 @@ use Vjik\SimpleTypeCaster\TypeCaster;
 
 final class TypeCasterTest extends TestCase
 {
+    public static function dataToInt(): iterable
+    {
+        yield [12000, '12 000'];
+        yield [12000, ' 12 000 '];
+        yield [42, 42];
+        yield [42, '42'];
+        yield [0, 0];
+        yield [0, '0'];
+        yield [0, ''];
+        yield [0, null];
+        yield [0, new stdClass()];
+        yield [-1, -1];
+        yield [-1, '-1'];
+    }
+
+    #[DataProvider('dataToInt')]
+    public function testToInt(int $expected, mixed $value): void
+    {
+        self::assertSame($expected, TypeCaster::toInt($value));
+    }
+
+    public static function dataToIntWithParams(): iterable
+    {
+        yield [0, 0, null, null, 7];
+        yield [0, '0', null, null, 7];
+        yield [7, '', null, null, 7];
+        yield [7, null, null, null, 7];
+        yield [7, new stdClass(), null, null, 7];
+        yield [0, 7, 8, null, 0];
+        yield [7, 7, 6, null, 0];
+        yield [7, 7, 7, null, 0];
+        yield [0, 7, null, 6, 0];
+        yield [7, 7, null, 7, 0];
+        yield [7, 7, null, 8, 0];
+        yield [7, 7, 6, 8, 0];
+    }
+
+    #[DataProvider('dataToIntWithParams')]
+    public function testToIntWithParams(int $expected, mixed $value, ?int $min, ?int $max, int $default): void
+    {
+        self::assertSame($expected, TypeCaster::toInt($value, $min, $max, $default));
+    }
+
     public static function dataToIntOrNull(): array
     {
         return [

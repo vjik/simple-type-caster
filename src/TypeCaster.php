@@ -13,25 +13,49 @@ use function is_float;
 use function is_int;
 use function is_scalar;
 use function is_string;
-use function strval;
 
 /**
  * @api
  */
 class TypeCaster
 {
-    final public static function toIntOrNull(mixed $value, ?int $min = null, ?int $max = null): ?int
+    final public static function toInt(mixed $value, ?int $min = null, ?int $max = null, int $default = 0): int
     {
-        if (!is_scalar($value) && !$value instanceof Stringable) {
-            return null;
+        if (!is_int($value)) {
+            if (is_scalar($value) || $value instanceof Stringable) {
+                $value = NumericHelper::normalize($value);
+                if ($value === '') {
+                    return $default;
+                }
+                $value = (int) $value;
+            } else {
+                return $default;
+            }
         }
 
+        if ($min !== null && $value < $min) {
+            return $default;
+        }
+
+        if ($max !== null && $value > $max) {
+            return $default;
+        }
+
+        return $value;
+    }
+
+    final public static function toIntOrNull(mixed $value, ?int $min = null, ?int $max = null): ?int
+    {
         if (!is_int($value)) {
-            $value = self::toStringOrNull(NumericHelper::normalize($value));
-            if ($value === null) {
+            if (is_scalar($value) || $value instanceof Stringable) {
+                $value = NumericHelper::normalize($value);
+                if ($value === '') {
+                    return null;
+                }
+                $value = (int) $value;
+            } else {
                 return null;
             }
-            $value = (int) $value;
         }
 
         if ($min !== null && $value < $min) {

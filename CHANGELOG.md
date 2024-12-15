@@ -1,5 +1,10 @@
 # Simple Type Caster Change Log
 
+## 0.4.3 December 15, 2024
+
+- Add `TypeCaster::toInt()`.
+- Refactor `TypeCaster::toIntOrNull()`.
+
 ## 0.4.2.1 December 15, 2024
 
 - Fix `TypeCaster::toString()` when value is not scalar and not array.
