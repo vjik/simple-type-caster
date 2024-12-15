@@ -79,7 +79,10 @@ class TypeCaster
 
     final public static function toString(mixed $value, bool $trim = false): string
     {
-        $value = is_scalar($value) ? (string) $value : '';
+        if (!is_scalar($value)) {
+            return '';
+        }
+        $value = (string) $value;
         return $trim ? trim($value) : $value;
     }
 
