@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.4.2.1 December 15, 2024
+
+- Fix `TypeCaster::toString()` when value is not scalar and not array.
+
 ## 0.4.2 October 31, 2024
 
 - Add `TypeCaster::toListOfNonEmptyStrings()`.
