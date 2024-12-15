@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Vjik\SimpleTypeCaster\Tests\Support\IntEnum;
+use Vjik\SimpleTypeCaster\Tests\Support\StringableObject;
 use Vjik\SimpleTypeCaster\Tests\Support\StringEnum;
 use Vjik\SimpleTypeCaster\TypeCaster;
 
@@ -467,5 +468,22 @@ final class TypeCasterTest extends TestCase
             ? TypeCaster::toListOfNonEmptyStrings($value)
             : TypeCaster::toListOfNonEmptyStrings($value, $trim);
         self::assertSame($expected, $result);
+    }
+
+    public static function dataToDateTimeOrNullByTimestamp(): iterable
+    {
+        yield [1734272324, 1734272324];
+        yield [1734272324, 1734272324.99];
+        yield [1734272324, '1734272324'];
+        yield [1734272324, new StringableObject('1734272324')];
+        yield [null, new stdClass()];
+        yield [0, 'hello'];
+    }
+
+    #[DataProvider('dataToDateTimeOrNullByTimestamp')]
+    public function testToDateTimeOrNullByTimestamp(int|null $expected, mixed $value): void
+    {
+        $result = TypeCaster::toDateTimeOrNullByTimestamp($value);
+        self::assertSame($expected, $result?->getTimestamp());
     }
 }

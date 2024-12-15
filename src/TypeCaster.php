@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vjik\SimpleTypeCaster;
 
 use BackedEnum;
+use DateTimeImmutable;
 use Stringable;
 use Yiisoft\Strings\NumericHelper;
 
@@ -232,5 +233,11 @@ class TypeCaster
             }
         }
         return $result;
+    }
+
+    final public static function toDateTimeOrNullByTimestamp(mixed $value): DateTimeImmutable|null
+    {
+        $timestamp = self::toIntOrNull($value);
+        return $timestamp === null ? null : (new DateTimeImmutable())->setTimestamp($timestamp);
     }
 }

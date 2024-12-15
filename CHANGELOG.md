@@ -4,6 +4,7 @@
 
 - Add `TypeCaster::toInt()`.
 - Refactor `TypeCaster::toIntOrNull()`.
+- Add `toDateTimeOrNullByTimestamp`.
 
 ## 0.4.2.1 December 15, 2024
 
