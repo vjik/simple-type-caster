@@ -1,9 +1,13 @@
 # Simple Type Caster Change Log
 
+## 0.4.4 January 31, 2025
+
+- Add `TypeCaster::toPositiveFloatOrNull()`.
+
 ## 0.4.3 December 15, 2024
 
 - Add `TypeCaster::toInt()`.
-- Add `TypeCaster::toDateTimeOrNullByTimestamp`.
+- Add `TypeCaster::toDateTimeOrNullByTimestamp()`.
 - Refactor `TypeCaster::toIntOrNull()`.
 
 ## 0.4.2.1 December 15, 2024
