@@ -153,6 +153,7 @@ final class TypeCasterTest extends TestCase
         return [
             ['12 500,90', 12500.9],
             ['13.56', 13.56],
+            ['-13.56', -13.56],
             [' 13.56 ', 13.56],
             [13.56, 13.56],
             [1, 1.0],
@@ -170,6 +171,33 @@ final class TypeCasterTest extends TestCase
     public function testToFloatOrNull(mixed $value, ?float $expected): void
     {
         self::assertSame($expected, TypeCaster::toFloatOrNull($value));
+    }
+
+    public static function dataToPositiveFloatOrNull(): array
+    {
+        return [
+            ['12 500,90', 12500.9],
+            ['13.56', 13.56],
+            ['-13.56', null],
+            ['-0.000001', null],
+            ['0.000001', 0.000001],
+            [' 13.56 ', 13.56],
+            [13.56, 13.56],
+            [1, 1.0],
+            [0, null],
+            ['0', null],
+            ['', null],
+            [null, null],
+            [new stdClass(), null],
+            [[], null],
+            [['a'], null],
+        ];
+    }
+
+    #[DataProvider('dataToPositiveFloatOrNull')]
+    public function testToPositiveFloatOrNull(mixed $value, ?float $expected): void
+    {
+        self::assertSame($expected, TypeCaster::toPositiveFloatOrNull($value));
     }
 
     public static function dataToString(): array

@@ -102,6 +102,12 @@ class TypeCaster
         return $value === null ? null : (float) $value;
     }
 
+    final public static function toPositiveFloatOrNull(mixed $value): ?float
+    {
+        $value = self::toFloatOrNull($value);
+        return $value !== null && $value > 0 ? $value : null;
+    }
+
     final public static function toString(mixed $value, bool $trim = false): string
     {
         if (!is_scalar($value)) {
