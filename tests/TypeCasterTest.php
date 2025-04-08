@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Vjik\SimpleTypeCaster\Tests;
 
 use BackedEnum;
+use DateTimeImmutable;
+use DateTimeZone;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -12,6 +14,8 @@ use Vjik\SimpleTypeCaster\Tests\Support\IntEnum;
 use Vjik\SimpleTypeCaster\Tests\Support\StringableObject;
 use Vjik\SimpleTypeCaster\Tests\Support\StringEnum;
 use Vjik\SimpleTypeCaster\TypeCaster;
+
+use function PHPUnit\Framework\assertSame;
 
 final class TypeCasterTest extends TestCase
 {
@@ -518,5 +522,75 @@ final class TypeCasterTest extends TestCase
     {
         $result = TypeCaster::toDateTimeOrNullByTimestamp($value);
         self::assertSame($expected, $result?->getTimestamp());
+    }
+
+    public static function dataToDateTimeOrNullByFormat(): iterable
+    {
+        $tzUtc = new DateTimeZone('UTC');
+        $tzEurope = new DateTimeZone('Europe/Moscow');
+
+        yield 'valid Y-m-d format' => [
+            new DateTimeImmutable('2023-12-31', $tzUtc),
+            '2023-12-31',
+            'Y-m-d',
+            $tzUtc,
+        ];
+
+        yield 'valid d/m/Y format' => [
+            new DateTimeImmutable('2023-01-15', $tzEurope),
+            '15/01/2023',
+            'd/m/Y',
+            $tzEurope,
+        ];
+
+        yield 'null input' => [
+            null,
+            null,
+            'Y-m-d',
+            $tzUtc,
+        ];
+
+        yield 'empty string' => [
+            null,
+            '',
+            'Y-m-d',
+            $tzUtc,
+        ];
+
+        yield 'invalid format' => [
+            null,
+            '2023-12-31',
+            'd.m.Y',
+            $tzUtc,
+        ];
+
+        yield 'non-string castable input' => [
+            new DateTimeImmutable('2024-04-08', $tzUtc),
+            20240408,
+            'Ymd',
+            $tzUtc,
+        ];
+
+        yield 'non-string non-castable input' => [
+            null,
+            new stdClass(),
+            'Y-m-d',
+            $tzUtc,
+        ];
+    }
+
+    #[DataProvider('dataToDateTimeOrNullByFormat')]
+    public function testToDateTimeOrNullByFormat(
+        ?DateTimeImmutable $expected,
+        mixed $value,
+        string $format,
+        DateTimeZone|null $timeZone = null,
+    ): void {
+        $result = TypeCaster::toDateTimeOrNullByFormat($value, $format, $timeZone);
+
+        assertSame(
+            $expected?->format('d.m.Y'),
+            $result?->format('d.m.Y'),
+        );
     }
 }

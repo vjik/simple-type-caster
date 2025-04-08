@@ -4,6 +4,7 @@
 
 - Change PHP constraint in `composer.json` to `8.1 - 8.4`.
 - Fix `TypeCaster::toString()` and `TypeCaster::toStringOrNull` when value is stringable object.
+- Add `Typecaster::toDateTimeOrNullByFormat()`.
 
 ## 0.4.4 January 31, 2025
 

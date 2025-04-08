@@ -6,6 +6,7 @@ namespace Vjik\SimpleTypeCaster;
 
 use BackedEnum;
 use DateTimeImmutable;
+use DateTimeZone;
 use Stringable;
 use Yiisoft\Strings\NumericHelper;
 
@@ -245,5 +246,20 @@ class TypeCaster
     {
         $timestamp = self::toIntOrNull($value);
         return $timestamp === null ? null : (new DateTimeImmutable())->setTimestamp($timestamp);
+    }
+
+    final public static function toDateTimeOrNullByFormat(
+        mixed $value,
+        string $format,
+        DateTimeZone|null $timeZone = null,
+    ): DateTimeImmutable|null {
+        $value = self::toStringOrNull($value);
+        if ($value === null) {
+            return null;
+        }
+
+        $result = DateTimeImmutable::createFromFormat($format, $value, $timeZone);
+
+        return $result === false ? null : $result;
     }
 }
