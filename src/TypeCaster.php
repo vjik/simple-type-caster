@@ -110,7 +110,7 @@ class TypeCaster
 
     final public static function toString(mixed $value, bool $trim = false): string
     {
-        if (!is_scalar($value)) {
+        if (!is_scalar($value) && !$value instanceof Stringable) {
             return '';
         }
         $value = (string) $value;
@@ -122,7 +122,7 @@ class TypeCaster
      */
     final public static function toStringOrNull(mixed $value, bool $trim = false): ?string
     {
-        if (is_array($value)) {
+        if (!is_scalar($value) && !$value instanceof Stringable) {
             return null;
         }
 
