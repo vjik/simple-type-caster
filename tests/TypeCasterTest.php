@@ -214,6 +214,7 @@ final class TypeCasterTest extends TestCase
             ['', []],
             ['', ['a']],
             ['  hello  ', '  hello  '],
+            'stringable-object' => ['hello', new StringableObject('hello')],
             'non-stringable-object' => ['', new stdClass()],
         ];
     }
@@ -254,6 +255,8 @@ final class TypeCasterTest extends TestCase
             [null, ['a']],
             [' test ', ' test '],
             ['  ', '  '],
+            'stringable-object' => ['hello', new StringableObject('hello')],
+            'non-stringable-object' => [null, new stdClass()],
         ];
     }
 

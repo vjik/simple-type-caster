@@ -1,5 +1,10 @@
 # Simple Type Caster Change Log
 
+## 0.4.5 under development
+
+- Change PHP constraint in `composer.json` to `8.1 - 8.4`.
+- Fix `TypeCaster::toString()` and `TypeCaster::toStringOrNull` when value is stringable object.
+
 ## 0.4.4 January 31, 2025
 
 - Add `TypeCaster::toPositiveFloatOrNull()`.
