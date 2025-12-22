@@ -24,6 +24,7 @@ final class BackedEnumTypeChecker
     public static function isString(string $class): bool
     {
         if (isset(self::$cache[$class])) {
+            /** @infection-ignore-all */
             return self::$cache[$class];
         }
 

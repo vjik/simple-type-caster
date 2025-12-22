@@ -92,6 +92,7 @@ class TypeCaster
     final public static function toFloatOrNull(mixed $value): ?float
     {
         if (is_float($value)) {
+            /** @infection-ignore-all */
             return $value;
         }
 

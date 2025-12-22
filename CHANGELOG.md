@@ -1,5 +1,9 @@
 # Simple Type Caster Change Log
 
+## 0.4.5.1 December 22, 2025
+
+- Add PHP 8.5 support.
+
 ## 0.4.5 April 08, 2025
 
 - Change PHP constraint in `composer.json` to `8.1 - 8.4`.
