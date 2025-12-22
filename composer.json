@@ -35,7 +35,8 @@
         }
     },
     "scripts": {
-        "cs-fix": "php-cs-fixer fix"
+        "cs-fix": "php-cs-fixer fix",
+        "mutation": "roave-infection-static-analysis-plugin --threads=$(nproc)"
     },
     "config": {
         "sort-packages": true,
