@@ -38,7 +38,7 @@
         "cs-fix": "php-cs-fixer fix",
         "mutation": "roave-infection-static-analysis-plugin --threads=$(nproc)",
         "test": "pest",
-        "test-coverage": "pest --coverage --coverage-html runtime/test-coverage"
+        "test-coverage": "pest --coverage-html runtime/test-coverage"
     },
     "config": {
         "sort-packages": true,
