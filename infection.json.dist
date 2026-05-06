@@ -1,4 +1,5 @@
 {
+    "testFramework": "pest",
     "minMsi": 100,
     "source": {
         "directories": [
