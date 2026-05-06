@@ -40,7 +40,7 @@ jobs:
           uses: ramsey/composer-install@v4
 
       - name: Run tests with phpunit.
-        run: vendor/bin/pest --ci  --parallel --coverage-clover=coverage.xml
+        run: vendor/bin/pest --ci --coverage-clover=coverage.xml
 
       - name: Upload coverage to Codecov.
         if: matrix.os == 'ubuntu-latest'
