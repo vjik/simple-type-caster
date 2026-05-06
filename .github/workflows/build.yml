@@ -36,8 +36,8 @@ jobs:
           ini-values: date.timezone='UTC'
           coverage: xdebug
 
-      -   name: Install Composer dependencies
-          uses: ramsey/composer-install@v4
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v4
 
       - name: Run tests with phpunit.
         run: vendor/bin/pest --ci --coverage-clover=coverage.xml
